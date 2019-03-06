@@ -1,7 +1,10 @@
 'use strict'
+const join = require('path').join
 const app = require('electron').app
 const ipc = require('electron').ipcMain
 const shell = require('electron').shell
+const Tray = require('electron').Tray
+const Menu = require('electron').Menu
 const config = require('./config')
 const createMainMenu = require('./menu')
 const createMainWindow = require('./window')
@@ -34,9 +37,16 @@ app.on('activate', () => {
   }
 })
 
+var tray = null
 app.on('ready', () => {
   mainWindow = createMainWindow(handleResize, handleClosed)
   createMainMenu()
+  tray = new Tray(join(__dirname, '../build/icon.png'))
+  tray.setToolTip('Show')
+  tray.on('click', function(){
+    mainWindow.show()
+  })
+  mainWindow.hide()
 })
 
 ipc.on('clicklink', (event, url) => {

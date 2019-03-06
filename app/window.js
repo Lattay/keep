@@ -17,11 +17,15 @@ module.exports = function createMainWindow (handleResize, handleClosed) {
     titleBarStyle: 'hiddenInset',
     webPreferences: {
       preload: `${__dirname}/browser.js`
-    }
+    },
   })
 
   window.loadURL('https://keep.google.com')
   window.on('resize', handleResize)
+  window.on('minimize',function(event){
+    event.preventDefault();
+    window.hide();
+  })
   window.on('closed', handleClosed)
 
   return window
