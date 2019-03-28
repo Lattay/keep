@@ -43,15 +43,15 @@ app.on('ready', () => {
   createMainMenu()
   tray = new Tray(join(__dirname, '../build/icon.png'))
   tray.setToolTip('Toggle Google Keep') 
-  let hidden = true
   tray.on('click', function(){
-    if(hidden){
+    if(mainWindow.hidden){
       mainWindow.show()
     } else {
       mainWindow.hide()
     }
-    hidden = !hidden
+    mainWindow.hidden = !mainWindow.hidden
   })
+  mainWindow.hidden = true
   mainWindow.hide()
 })
 

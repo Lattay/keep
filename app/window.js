@@ -18,6 +18,7 @@ module.exports = function createMainWindow (handleResize, handleClosed) {
     webPreferences: {
       preload: `${__dirname}/browser.js`
     },
+    hidden: true,
   })
 
   window.loadURL('https://keep.google.com')
@@ -25,6 +26,7 @@ module.exports = function createMainWindow (handleResize, handleClosed) {
   window.on('minimize',function(event){
     event.preventDefault();
     window.hide();
+    window.hidden = true;
   })
   window.on('closed', handleClosed)
 
